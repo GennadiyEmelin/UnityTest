@@ -1,0 +1,41 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class GameManager : MonoBehaviour
+{
+    [SerializeField] private Transform Finish;
+    [SerializeField] private Transform Spawn;
+    [SerializeField] private GameObject Player;
+    [SerializeField] private InputField TimeInput;
+    [SerializeField] private InputField SpeedInput;
+    [SerializeField] private InputField DistanceInput;
+
+    public float timeGame;
+    void Start()
+    {
+        TimeInput.text = 5.ToString();
+        DistanceInput.text = 5.ToString();
+        SpeedInput.text = 5.ToString();
+        timeGame = float.Parse(TimeInput.text);
+    }
+
+    void Update()
+    {
+        float time = float.Parse(TimeInput.text);
+        float speed = float.Parse(SpeedInput.text);
+        float distance = float.Parse(DistanceInput.text);
+
+        timeGame -= Time.deltaTime;
+
+        if(timeGame < 0)
+        {
+           Instantiate(Player, Spawn.position, Quaternion.identity);
+           timeGame = time;
+        }  
+
+        Finish.transform.position = new Vector3 (0, 0, distance);
+        
+    }
+}
