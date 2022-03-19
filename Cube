@@ -1,0 +1,29 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class Cube : MonoBehaviour
+{
+    [SerializeField] private Transform Finish;
+    [SerializeField] private InputField speedInput;
+    void Start()
+    {
+        
+    }
+
+    void Update()
+    {
+        float speed = float.Parse(speedInput.text); 
+
+        transform.position = Vector3.MoveTowards(transform.position, Finish.position, speed * Time.deltaTime);
+    }
+
+    public void OnTriggerEnter(Collider collider)
+    {
+        if (collider.CompareTag("Finish"))
+        {
+            Destroy(gameObject);
+        }
+    }
+}
